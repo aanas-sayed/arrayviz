@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "arrayviz"
+version = "0.0.1"
+authors = [{ name = "Aanas Sayed", email = "aanas.sayed@outlook.com" }]
+maintainers = [{ name = "Aanas Sayed", email = "aanas.sayed@outlook.com" }]
+description = "A Python package for visualizing array-based algorithms using Manim"
+keywords = ["array", "visualization", "manim", "animation"]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["manim==0.18.*"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+]
+
+[project.urls]
+Homepage = "https://github.com/aanas-sayed/arrayviz"
+Documentation = "https://github.com/aanas-sayed/arrayviz"
+Repository = "https://github.com/aanas-sayed/arrayviz.git"
+Issues = "https://github.com/aanas-sayed/arrayviz/issues"
