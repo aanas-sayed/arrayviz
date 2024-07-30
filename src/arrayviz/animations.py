@@ -1,5 +1,6 @@
 from manim import *
 from typing import Callable, Optional
+from copy import deepcopy
 
 
 class ArrayBlockVisualizer(Scene):
@@ -56,9 +57,9 @@ class ArrayBlockVisualizer(Scene):
         # Set the array count if not set
         if self.array_count is None:
             if arrays is not None:
-                self.array_count = len((arrays))
+                self.array_count = len(arrays)
             elif pointers is not None:
-                self.array_count = len((pointers))
+                self.array_count = len(pointers)
 
         # Check if arrays or pointers are of the set length
         if arrays is not None:
@@ -73,17 +74,21 @@ class ArrayBlockVisualizer(Scene):
                 )
 
         # Set frame based on which combination of arrays and/or pointers has been passed
-        # and wether its the first frame or not
+        # and whether it's the first frame or not
         if arrays is not None and pointers is not None:
-            self.frames.append((arrays[:], pointers[:]))
+            self.frames.append((deepcopy(arrays), deepcopy(pointers)))
         elif self.frames and arrays is not None:
-            self.frames.append((arrays[:], self.frames[-1][1][:]))
+            self.frames.append((deepcopy(arrays), deepcopy(self.frames[-1][1])))
         elif self.frames and pointers is not None:
-            self.frames.append((self.frames[-1][0][:], pointers[:]))
+            self.frames.append((deepcopy(self.frames[-1][0]), deepcopy(pointers)))
         elif arrays is not None:
-            self.frames.append((arrays[:], [{} for _ in range(self.array_count)]))
+            self.frames.append(
+                (deepcopy(arrays), [{} for _ in range(self.array_count)])
+            )
         elif pointers is not None:
-            self.frames.append(([[] for _ in range(self.array_count)], pointers[:]))
+            self.frames.append(
+                ([[] for _ in range(self.array_count)], deepcopy(pointers))
+            )
         else:
             raise AttributeError("No attribute passed")
 
