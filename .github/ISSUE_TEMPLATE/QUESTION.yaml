@@ -9,8 +9,8 @@ body:
         Thank you for using this project!
 
         If you are looking for support, please check out our documentation.
-        # TODO: Add documentation link
-        # * [Documentation](https://example.com/docs)
+        <!-- TODO: Add documentation link -->
+        <!-- * [Documentation](https://example.com/docs) -->
   - type: textarea
     id: question
     attributes:
