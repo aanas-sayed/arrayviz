@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: manimcommunity/manim:v0.18.1
+      options: --user root
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
