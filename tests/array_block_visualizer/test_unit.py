@@ -28,4 +28,4 @@ def test_record_frame_with_pointers_only():
 
     visualizer.record_frame(pointers=[{"i": 1}])
     assert len(visualizer.frames) == 1
-    assert visualizer.frames[0] == ([[], []], [{"i": 1}])
+    assert visualizer.frames[0] == ([[]], [{"i": 1}])
