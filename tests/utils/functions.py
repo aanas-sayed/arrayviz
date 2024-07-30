@@ -10,6 +10,7 @@ def dummy_func(record_frame):
     record_frame(arrays=arrays, pointers=pointers)
 
     # Simulate some changes
+    # NOTE: Modifying the same array to test deep copy
     arrays[0][0] = 10
     pointers[0]["i"] = 1
 
