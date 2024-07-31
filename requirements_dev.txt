@@ -1,2 +1,4 @@
 manim==0.18.1
 pytest
+pylint
+importlib-metadata # Manually needed to be installed for workflows

@@ -1,6 +1,6 @@
-from manim import *
-from typing import Callable, Optional
 from copy import deepcopy
+from typing import Callable, Optional
+from manim import Scene, Create, VGroup, Text, Square, BLUE, RED, PINK, WHITE
 
 
 class ArrayBlockVisualizer(Scene):
@@ -22,7 +22,8 @@ class ArrayBlockVisualizer(Scene):
         **kwargs,
     ):
         """
-        Initializes the FunctionAnimation class with a function, its arguments, and additional kwargs.
+        Initializes the FunctionAnimation class with a function, its arguments, and additional
+        kwargs.
         """
         self.func = func
         self.func_args = func_args
@@ -44,6 +45,22 @@ class ArrayBlockVisualizer(Scene):
         for frame_index in range(len(self.frames)):
             self.show_frame(frame_index)
 
+    def _validate_length(self, name: str, items: list):
+        """
+        Validate the length of a list against the expected count.
+
+        Args:
+            name (str): A descriptive name for the list being validated, used in the error message.
+            items (list): The list whose length is to be validated.
+
+        Raises:
+            ValueError: If the length of `items` does not match `self.array_count`.
+        """
+        if items is not None and len(items) != self.array_count:
+            raise ValueError(
+                f"Length of {name} is {len(items)}. Expected: {self.array_count}"
+            )
+
     def record_frame(
         self, arrays: Optional[list[list]] = None, pointers: Optional[list[dict]] = None
     ):
@@ -62,16 +79,8 @@ class ArrayBlockVisualizer(Scene):
                 self.array_count = len(pointers)
 
         # Check if arrays or pointers are of the set length
-        if arrays is not None:
-            if len(arrays) != self.array_count:
-                raise ValueError(
-                    f"Length of array is: {len(arrays)}. Expected: {self.array_count}"
-                )
-        if pointers is not None:
-            if len(pointers) != self.array_count:
-                raise ValueError(
-                    f"Length of pointers is: {len(pointers)}. Expected: {self.array_count}"
-                )
+        self._validate_length("arrays", arrays)
+        self._validate_length("pointers", pointers)
 
         # Set frame based on which combination of arrays and/or pointers has been passed
         # and whether it's the first frame or not
@@ -115,7 +124,38 @@ class ArrayBlockVisualizer(Scene):
 
         self.wait(self.delay)
 
-    def create_objects(self, frame_index: int):
+    def _get_updated_indices(self, frame_index: int) -> list[list[int]]:
+        """
+        Identifies the indices of updated elements by comparing the current frame with the
+        previous frame.
+
+        Args:
+            frame_index (int): The index of the current frame to compare with the previous
+            frame.
+
+        Returns:
+            list: A list of lists where each inner list contains indices of updated elements
+            for each array.
+        """
+        updated_indices_for_all_arrays = []
+
+        if frame_index != 0:
+            current_arrays, _ = self.frames[frame_index]
+            previous_arrays, _ = self.frames[frame_index - 1]
+
+            for current_array, previous_array in zip(current_arrays, previous_arrays):
+                updated_indices = [
+                    i
+                    for i, (current, previous) in enumerate(
+                        zip(current_array, previous_array)
+                    )
+                    if current != previous
+                ]
+                updated_indices_for_all_arrays.append(updated_indices)
+
+        return updated_indices_for_all_arrays
+
+    def create_objects(self, frame_index: int):  # pylint: disable=too-many-locals
         """
         Creates Manim objects (squares and text) to represent arrays and pointers.
 
@@ -126,32 +166,31 @@ class ArrayBlockVisualizer(Scene):
         Returns:
             tuple: Two lists of Manim VGroups, one for array objects and one for pointer objects.
         """
-        current_arrays, pointers = self.frames[frame_index]
-        if frame_index != 0:
-            previous_arrays, _ = self.frames[frame_index - 1]
-            updated_indices_for_all_arrays = []
-            for current_array, previous_array in zip(current_arrays, previous_arrays):
-                updated_indices = []
-                for i in range(len(current_array)):
-                    if current_array[i] != previous_array[i]:
-                        updated_indices.append(i)
-                updated_indices_for_all_arrays.append(updated_indices)
+        updated_indices_for_all_arrays = self._get_updated_indices(frame_index)
+
+        # Create Manim objects for arrays and pointers
         array_groups = []
         pointer_groups = []
+
+        current_arrays, pointers = self.frames[frame_index]
+
         for array_no, array in enumerate(current_arrays):
             array_group = VGroup()
             pointer_group = VGroup()
             y_pos = 1 - 2 * array_no
             x_pos = -len(array) // 2
+
             for idx, val in enumerate(array):
                 rect = Square(side_length=1, color=BLUE if array_no == 0 else RED)
-                if frame_index != 0:
-                    if idx in updated_indices_for_all_arrays[array_no]:
-                        rect.set_fill(PINK, opacity=0.5)
+                if frame_index != 0 and idx in updated_indices_for_all_arrays[array_no]:
+                    # Set block color if changed from last frame
+                    rect.set_fill(PINK, opacity=0.5)
                 rect.move_to([x_pos + idx, y_pos, 0])
                 text = Text(str(val), font_size=24)
                 text.move_to(rect.get_center())
                 array_group.add(rect, text)
+
+                # Add pointer if there is one at current index
                 for pointer_name, pointer_value in pointers[array_no].items():
                     if idx == pointer_value:
                         pointer_text = Text(pointer_name, font_size=24, color=WHITE)
@@ -160,4 +199,5 @@ class ArrayBlockVisualizer(Scene):
 
             array_groups.append(array_group)
             pointer_groups.append(pointer_group)
+
         return array_groups, pointer_groups

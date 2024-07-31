@@ -41,10 +41,10 @@ def merge(nums1, m, nums2, n, record_frame):
 
 
 # Initial arrays for the merge function
-nums1 = [4, 5, 7, 0, 0, 0, 0, 0, 0]
-nums2 = [1, 2, 2, 3, 5, 6]
-m = 3  # Number of initial valid elements in nums1
-n = 6  # Number of elements in nums2
+NUMS1 = [4, 5, 7, 0, 0, 0, 0, 0, 0]
+NUMS2 = [1, 2, 2, 3, 5, 6]
+M = 3  # Number of initial valid elements in nums1
+N = 6  # Number of elements in nums2
 
 
 class MergeScene(ArrayBlockVisualizer):
@@ -60,9 +60,10 @@ class MergeScene(ArrayBlockVisualizer):
             func (callable): The user-provided function to animate.
             func_args (tuple): Arguments to pass to the user-provided function.
             delay (float): The delay time between frames in seconds. Default is 1.
-            **kwargs: Additional keyword arguments for the FunctionAnimation superclass (manim.Scene).
+            **kwargs: Additional keyword arguments for the FunctionAnimation superclass
+            (manim.Scene).
         """
-        super().__init__(merge, (nums1, m, nums2, n), **kwargs)
+        super().__init__(merge, (NUMS1, M, NUMS2, N), **kwargs)
 
 
 # To render this scene, use the following command in your terminal:
