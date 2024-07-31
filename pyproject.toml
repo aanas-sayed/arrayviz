@@ -11,7 +11,7 @@ description = "A Python package for visualizing array-based algorithms using Man
 keywords = ["array", "visualization", "manim", "animation"]
 readme = "README.md"
 requires-python = ">=3.8"
-dependencies = ["manim==0.18.*"]
+dependencies = ["manim>=0.18.0"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Programming Language :: Python :: 3",
