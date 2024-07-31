@@ -5,23 +5,27 @@ on: [push]
 jobs:
   lint_and_test:
     runs-on: ubuntu-latest
-    container:
-      image: manimcommunity/manim:v0.18.1
-      options: --user root
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install dependencies
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install linux dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential python3-dev libcairo2-dev libpango1.0-dev ffmpeg
+      - name: Install python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements_dev.txt
-          pip install .
-
-      - name: Analyze code with pylint
+          python -m pip install -r requirements_dev.txt
+          python -m pip install .
+      - name: Analysing the code with pylint
         run: |
-          python -m pylint **/*.py
-
-      - name: Run tests with pytest
+          python -m pylint $(git ls-files '*.py')
+      - name: Test with pytest
         run: |
           python -m pytest -v
