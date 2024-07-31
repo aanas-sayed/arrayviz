@@ -10,7 +10,7 @@ maintainers = [{ name = "Aanas Sayed", email = "aanas.sayed@outlook.com" }]
 description = "A Python package for visualizing array-based algorithms using Manim"
 keywords = ["array", "visualization", "manim", "animation"]
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.8"
 dependencies = ["manim==0.18.*"]
 classifiers = [
     "Development Status :: 3 - Alpha",
