@@ -84,15 +84,6 @@ jobs:
             echo "Version in pyproject.toml (${{ env.version }}) does not match tag (${{ env.tag_version }})"
             exit 1
           fi
-      - name: Create Release
-        id: create_release
-        uses: softprops/action-gh-release@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          name: ArrayViz ${{ env.version }}
-          draft: true
-          prerelease: true
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
@@ -101,10 +92,27 @@ jobs:
       - name: Sanity check builds
         run: |
           ls -a dist/
-      - name: Push artifacts to release
+      - name: Create Release
+        id: create_release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: dist/*.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          name: ArrayViz ${{ env.version }}
+          body: |
+            I am pleased to announce the release of ArrayViz ${{ env.version }}.
+
+            ArrayViz ${{ env.version }} supports Python 3.8 and higher.
+
+            The release will be available via PyPI:
+
+            ```python
+            python -m pip install --upgrade arrayviz
+            ```
+
+            Please report any issues with the release on the issue tracker.
+          files: dist/*.tar.gz
+          draft: true
+          prerelease: true
+          fail_on_unmatched_filesv: true
+          make_latest: true
