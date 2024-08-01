@@ -55,6 +55,7 @@ jobs:
             dist/*.whl
             dist/*.tar.gz
       - name: Get Build Version
+        id: get_version
         run: |
-          VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['tool']['poetry']['version'])")
+          VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")
           echo "version=$VERSION"
