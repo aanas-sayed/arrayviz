@@ -54,8 +54,39 @@ jobs:
           path: |
             dist/*.whl
             dist/*.tar.gz
-      - name: Get Build Version
+      - name: Sanity check
+        run: |
+          ls -a dist/
+
+  release:
+    runs-on: ubuntu-latest
+    needs: build
+    # if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: python-package
+          path: dist
+      - name: Extract version from pyproject.toml
         id: get_version
         run: |
           VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")
-          echo "version=$VERSION"
+          echo "version=$VERSION" >> $GITHUB_ENV
+      - name: Create a ZIP file of the artifacts
+        run: |
+          zip -r arrayviz-${{ env.version }}.zip dist/
+      - name: Sanity check
+        run: |
+          ls -a dist/
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.version }}
+          release_name: Release ${{ env.version }}
+          draft: false
+          prerelease: true
