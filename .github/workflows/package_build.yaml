@@ -69,6 +69,10 @@ jobs:
         with:
           name: python-package
           path: dist
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
       - name: Extract version from pyproject.toml
         id: get_version
         run: |
