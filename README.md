@@ -18,22 +18,11 @@ This project is a work in progress. Package has not been released yet but is pla
 
 First, install Manim according to the instructions on [Manim's official website](https://docs.manim.community/en/stable/installation.html).
 
-Next, clone this repository and navigate to the project directory:
+Install the package via PyPI:
 
 ```bash
-git clone https://github.com/aanas-sayed/arrayviz.git
-cd arrayviz
+python -m pip install --upgrade arrayviz
 ```
-
-Install the package using pip:
-
-```bash
-python -m pip install .
-```
-
-> [!NOTE]
->
-> The package will be uploaded to [PyPI](https://pypi.org) when tests have been made.
 
 ## Usage
 

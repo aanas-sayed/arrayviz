@@ -112,7 +112,7 @@ jobs:
 
             The release will be available via PyPI:
 
-            ```python
+            ```bash
             python -m pip install --upgrade arrayviz
             ```
 
