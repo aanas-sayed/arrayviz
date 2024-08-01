@@ -5,20 +5,21 @@
 | --- | --- |
 | Meta | [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT) |
 | Testing | [![Pylint and Tests](https://github.com/aanas-sayed/arrayviz/actions/workflows/lint_and_test.yaml/badge.svg)](https://github.com/aanas-sayed/arrayviz/actions/workflows/lint_and_test.yaml) [![Release](https://github.com/aanas-sayed/arrayviz/actions/workflows/build_and_release.yaml/badge.svg)](https://github.com/aanas-sayed/arrayviz/actions/workflows/build_and_release.yaml) |
+| Package | [![PyPI Latest Release](https://img.shields.io/pypi/v/arrayviz.svg)](https://pypi.org/project/arrayviz/) |
 
 <!-- badges: end -->
 
-This package allows users to pass a function and visualize it as blocks and elements using Manim, a powerful mathematical animation engine. It provides an easy way to animate algorithms step-by-step, helping with educational purposes and debugging.
+This package allows users to pass a function and visualize it as blocks and elements using [Manim](https://www.manim.community), a powerful mathematical animation engine. It provides an easy way to animate algorithms step-by-step, helping with educational purposes and debugging.
 
-Note
-
-This project is a work in progress. Package has not been released yet but is planned to be. Only limited functionality is implemented as of now.
+> [!NOTE]
+>
+> Tha package is usable but with only limited functionality as of now.
 
 ## Installation
 
 First, install Manim according to the instructions on [Manim's official website](https://docs.manim.community/en/stable/installation.html).
 
-Install the package via PyPI:
+Install the package via [Python Package Index (PyPI)](https://pypi.org/project/pandas):
 
 ```bash
 python -m pip install --upgrade arrayviz
@@ -41,9 +42,7 @@ The `ArrayBlockVisualizer` class is designed to animate the execution of a user-
 
 ![merge sorted arrays](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbHdkaTQ0dmNxZ2Zzems0dTRmcGgyMjltNDkwMnB4M2c1eDFnM3hqbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/16ka9sdzYT5rACNM6O/giphy.gif)
 
-The following example demonstrates how to use the `ArrayBlockVisualizer` class to animate an example merge function for sorted arrays.
-
-**`examples/merge_sorted_arrays.py`**
+The following example demonstrates how to use the `ArrayBlockVisualizer` class to animate an example merge function for sorted arrays ([`examples/merge_sorted_arrays.py`](https://github.com/aanas-sayed/arrayviz/blob/main/examples/merge_sorted_arrays.py)):
 
 ```python
 from arrayviz import ArrayBlockVisualizer
@@ -108,10 +107,6 @@ class MergeScene(ArrayBlockVisualizer):
             **kwargs: Additional keyword arguments for the ArrayBlockVisualizer superclass.
         """
         super().__init__(merge, (nums1, m, nums2, n), **kwargs)
-
-
-# To render this scene, use the following command in your terminal:
-# manim -pql examples/merge_sorted_arrays.py MergeScene
 ```
 
 ### Running the Example
@@ -126,7 +121,7 @@ manim -pql example.py MergeScene
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+[MIT License](https://github.com/aanas-sayed/arrayviz/blob/main/LICENSE)
 
 ## Contributing
 
