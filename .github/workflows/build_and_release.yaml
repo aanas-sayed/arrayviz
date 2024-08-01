@@ -120,5 +120,25 @@ jobs:
           files: dist/*.tar.gz
           draft: true
           prerelease: true
-          fail_on_unmatched_filesv: true
+          fail_on_unmatched_files: true
           make_latest: true
+
+  pypi-publish:
+    name: upload release to PyPI
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: python-package
+          path: dist
+      - name:
+          Publish package distributions to PyPI
+          # gh-action-pypi-publish uses TWINE_PASSWORD automatically
+        uses: pypa/gh-action-pypi-publish@release/v1
