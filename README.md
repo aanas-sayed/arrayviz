@@ -1,9 +1,10 @@
 # ArrayViz
 
 <!-- badges: start -->
-
-![Version](https://img.shields.io/badge/Version-0.0.1-red)
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+| | |
+| --- | --- |
+| Meta | [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT) |
+| Testing | [![Pylint and Tests](https://github.com/aanas-sayed/arrayviz/actions/workflows/lint_and_test.yaml/badge.svg)](https://github.com/aanas-sayed/arrayviz/actions/workflows/lint_and_test.yaml) [![Package Build](https://github.com/aanas-sayed/arrayviz/actions/workflows/package_build.yaml/badge.svg)](https://github.com/aanas-sayed/arrayviz/actions/workflows/package_build.yaml) |
 
 <!-- badges: end -->
 
@@ -17,22 +18,11 @@ This project is a work in progress. Package has not been released yet but is pla
 
 First, install Manim according to the instructions on [Manim's official website](https://docs.manim.community/en/stable/installation.html).
 
-Next, clone this repository and navigate to the project directory:
+Install the package via PyPI:
 
 ```bash
-git clone https://github.com/aanas-sayed/arrayviz.git
-cd arrayviz
+python -m pip install --upgrade arrayviz
 ```
-
-Install the package using pip:
-
-```bash
-python -m pip install .
-```
-
-> [!NOTE]
->
-> The package will be uploaded to [PyPI](https://pypi.org) when tests have been made.
 
 ## Usage
 

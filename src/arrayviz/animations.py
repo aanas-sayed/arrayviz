@@ -1,5 +1,5 @@
 from copy import deepcopy
-from typing import Callable, Optional
+from typing import Callable, Optional, List
 from manim import Scene, Create, VGroup, Text, Square, BLUE, RED, PINK, WHITE
 
 
@@ -62,7 +62,7 @@ class ArrayBlockVisualizer(Scene):
             )
 
     def record_frame(
-        self, arrays: Optional[list[list]] = None, pointers: Optional[list[dict]] = None
+        self, arrays: Optional[List[list]] = None, pointers: Optional[List[dict]] = None
     ):
         """
         Records the state of arrays and pointers at each step of the function execution.
@@ -124,7 +124,7 @@ class ArrayBlockVisualizer(Scene):
 
         self.wait(self.delay)
 
-    def _get_updated_indices(self, frame_index: int) -> list[list[int]]:
+    def _get_updated_indices(self, frame_index: int) -> List[List[int]]:
         """
         Identifies the indices of updated elements by comparing the current frame with the
         previous frame.
