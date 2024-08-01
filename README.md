@@ -1,9 +1,10 @@
 # ArrayViz
 
 <!-- badges: start -->
-
-![Version](https://img.shields.io/badge/Version-0.0.1-red)
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+| | |
+| --- | --- |
+| Meta | [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT) |
+| Testing | [![Pylint and Tests](https://github.com/aanas-sayed/arrayviz/actions/workflows/lint_and_test.yaml/badge.svg)](https://github.com/aanas-sayed/arrayviz/actions/workflows/lint_and_test.yaml) [![Package Build](https://github.com/aanas-sayed/arrayviz/actions/workflows/package_build.yaml/badge.svg)](https://github.com/aanas-sayed/arrayviz/actions/workflows/package_build.yaml) |
 
 <!-- badges: end -->
 
