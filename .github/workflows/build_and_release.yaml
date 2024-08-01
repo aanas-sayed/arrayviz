@@ -122,10 +122,10 @@ jobs:
 
   pypi-publish:
     name: upload release to PyPI
+    environment: release
     needs: build
     # if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
-    environment: release
     permissions:
       id-token: write
     steps:
